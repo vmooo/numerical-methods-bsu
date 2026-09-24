@@ -15,12 +15,10 @@ def forward_elimination(A, b):
         if abs(pivot) < 1e-15:
             raise ValueError(f"Нулевой ведущий элемент на шаге {k}")
 
-        # Нормировка k-й строки
         for j in range(k, n):
             A[k, j] /= pivot
         b[k] /= pivot
 
-        # Исключение x_k из строк ниже
         for i in range(k + 1, n):
             factor = A[i, k]
             for j in range(k, n):
@@ -47,8 +45,9 @@ def solve():
 
     print("Матрица A\n", A)
 
-    # b = сумма элементов в каждой строке
-    b = A.sum(axis=1, keepdims=True)
+    # b = A.sum(axis=1, keepdims=True)
+    x_exact = np.ones(n)
+    b = x_exact @ A
 
     print("Вектор b\n", b)
 
